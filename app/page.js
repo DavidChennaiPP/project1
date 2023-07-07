@@ -1,95 +1,118 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Calculator</title>
+  <style>
+    /* CSS */
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={25}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    .calculator {
+      width: 250px;
+      margin: 100px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+    }
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    .calculator input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 20px;
+    }
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+    .calculator button {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      margin: 5px;
+      border-radius: 50%;
+      background-color: #ccc;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+    .calculator button:hover {
+      background-color: #e6e6e6;
+    }
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+    .calculator .row {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="result" readonly>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+    <div class="row">
+      <button onclick="clearResult()">C</button>
+      <button onclick="deleteCharacter()">&larr;</button>
+      <button onclick="appendCharacter('/')">/</button>
+      <button onclick="appendCharacter('*')">*</button>
+    </div>
+
+    <div class="row">
+      <button onclick="appendCharacter('7')">7</button>
+      <button onclick="appendCharacter('8')">8</button>
+      <button onclick="appendCharacter('9')">9</button>
+      <button onclick="appendCharacter('-')">-</button>
+    </div>
+
+    <div class="row">
+      <button onclick="appendCharacter('4')">4</button>
+      <button onclick="appendCharacter('5')">5</button>
+      <button onclick="appendCharacter('6')">6</button>
+      <button onclick="appendCharacter('+')">+</button>
+    </div>
+
+    <div class="row">
+      <button onclick="appendCharacter('1')">1</button>
+      <button onclick="appendCharacter('2')">2</button>
+      <button onclick="appendCharacter('3')">3</button>
+      <button onclick="calculateResult()">=</button>
+    </div>
+
+    <div class="row">
+      <button onclick="appendCharacter('0')">0</button>
+      <button onclick="appendCharacter('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript
+    function appendCharacter(char) {
+      const result = document.getElementById("result");
+      result.value += char;
+    }
+
+    function calculateResult() {
+      const result = document.getElementById("result");
+      try {
+        result.value = eval(result.value);
+      } catch (error) {
+        result.value = "Error";
+      }
+    }
+
+    function clearResult() {
+      const result = document.getElementById("result");
+      result.value = "";
+    }
+
+    function deleteCharacter() {
+      const result = document.getElementById("result");
+      result.value = result.value.slice(0, -1);
+    }
+  </script>
+</body>
+</html>
